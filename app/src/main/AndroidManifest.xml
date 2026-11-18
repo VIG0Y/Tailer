@@ -1,0 +1,43 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="ru.tailer.app" android:versionCode="2" android:versionName="1.1">
+ <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="35"/>
+ <uses-permission android:name="android.permission.INTERNET"/>
+ <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+ <uses-permission android:name="android.permission.CAMERA"/>
+ <uses-feature android:name="android.hardware.camera" android:required="false"/>
+ <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+ <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+ <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+ <uses-permission android:name="android.permission.CALL_PHONE"/>
+ <uses-feature android:name="android.hardware.telephony" android:required="false"/>
+ <queries>
+  <intent><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent>
+  <package android:name="org.telegram.messenger"/><package android:name="org.telegram.messenger.web"/><package android:name="org.thunderdog.challegram"/>
+ </queries>
+ <application android:label="Tailer" android:icon="@drawable/tailer" android:theme="@android:style/Theme.Material.NoActionBar" android:allowBackup="false" android:usesCleartextTraffic="false">
+  <service android:name=".TailerTile" android:label="Tailer" android:icon="@drawable/tailer" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
+   <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter>
+  </service>
+  <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize">
+   <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+  </activity>
+  <activity android:name=".PhoneActivity" android:excludeFromRecents="true" android:exported="true" android:launchMode="singleTop" android:showWhenLocked="true" android:turnScreenOn="true">
+   <intent-filter><action android:name="android.intent.action.DIAL"/><category android:name="android.intent.category.DEFAULT"/></intent-filter>
+   <intent-filter><action android:name="android.intent.action.DIAL"/><category android:name="android.intent.category.DEFAULT"/><data android:scheme="tel"/></intent-filter>
+  </activity>
+  <service android:name=".PhoneService" android:permission="android.permission.BIND_INCALL_SERVICE" android:exported="true">
+   <meta-data android:name="android.telecom.IN_CALL_SERVICE_UI" android:value="true"/>
+   <intent-filter><action android:name="android.telecom.InCallService"/></intent-filter>
+  </service>
+  <service android:name=".TelegramService" android:label="Tailer · Telegram" android:exported="false" android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+   <intent-filter><action android:name="android.service.notification.NotificationListenerService"/></intent-filter>
+  </service>
+  <service android:name=".TelegramSendService" android:label="Tailer · Отправка в Telegram" android:exported="true" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+   <intent-filter><action android:name="android.accessibilityservice.AccessibilityService"/></intent-filter>
+   <meta-data android:name="android.accessibilityservice" android:resource="@xml/telegram_send"/>
+  </service>
+  <service android:name=".GameService" android:label="Tailer · Игровые касания" android:exported="true" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+   <intent-filter><action android:name="android.accessibilityservice.AccessibilityService"/></intent-filter>
+   <meta-data android:name="android.accessibilityservice" android:resource="@xml/game_service"/>
+  </service>
+ </application>
+</manifest>

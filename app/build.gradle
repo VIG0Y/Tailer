@@ -1,0 +1,16 @@
+plugins { id 'com.android.application' version '8.10.1' }
+android {
+    namespace 'ru.tailer.app'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'ru.tailer.app'
+        minSdk 29
+        targetSdk 35
+        versionCode 2
+        versionName '1.1'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
